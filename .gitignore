@@ -9,7 +9,6 @@ out/
 
 # Payload generated files
 src/payload-types.ts
-src/app/(payload)/admin/importMap.js
 
 # Environment variables
 .env

@@ -11,6 +11,15 @@ import { Pages } from './collections/Pages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const vercelServerURL =
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : undefined) ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined)
+
+const serverURL = process.env.VERCEL
+  ? vercelServerURL || process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  : process.env.NEXT_PUBLIC_SERVER_URL || vercelServerURL || 'http://localhost:3000'
 
 export default buildConfig({
   plugins: [
@@ -63,7 +72,7 @@ export default buildConfig({
     },
   }),
   sharp,
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL,
+  serverURL,
   upload: {
     limits: {
       fileSize: 10_000_000, // 10MB

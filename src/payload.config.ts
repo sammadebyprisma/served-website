@@ -15,7 +15,12 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   plugins: [
     s3Storage({
-      collections: { media: true },
+      collections: {
+        media: {
+          generateFileURL: ({ filename }) =>
+            `${process.env.R2_PUBLIC_URL}/${filename}`,
+        },
+      },
       bucket: process.env.R2_BUCKET || 'served-media',
       config: {
         endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
@@ -26,8 +31,6 @@ export default buildConfig({
         region: 'auto',
         forcePathStyle: true,
       },
-      generateFileURL: ({ filename }) =>
-        `${process.env.R2_PUBLIC_URL}/${filename}`,
     }),
   ],
   admin: {

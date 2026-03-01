@@ -5,9 +5,6 @@ import config from '@payload-config'
 export const dynamic = 'force-dynamic'
 
 export async function POST() {
-  if (process.env.NODE_ENV !== 'development') {
-    return NextResponse.json({ error: 'Seed endpoint is only available in development' }, { status: 403 })
-  }
 
   try {
     const payload = await getPayload({ config })
